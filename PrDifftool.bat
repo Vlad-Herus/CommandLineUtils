@@ -36,4 +36,5 @@ set baseBranch=%baseBranchDirty:*uniqueStringToFind=%
 
 rem I don't know how to do fancy fetch for branches that I need so I'm fetching all
 git fetch --all
-git difftool -d origin/%baseBranch% origin/%hostBranch%    
+@echo on
+start git difftool -d origin/%baseBranch%...origin/%hostBranch%    
