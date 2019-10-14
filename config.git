@@ -1,3 +1,4 @@
+[alias]
 	personalprofile = 'config'
 	prList = "!f() {         hub pr list -s open -f '%pC%>(8)%i%Creset %B %t% l%n';     };f "
 	prListAll = "!f() {         hub pr list -f '%pC%>(8)%i%Creset %t% l%n';     };f "
@@ -6,4 +7,22 @@
 	mergeHist = "!f() {         git log --graph $1 --pretty=format:%h%x09%d%x20%s --merges -n $2;     };f "
 	co = checkout
 	ext = "!f() {         start gitextensions browse cd;     };f "
-	prdifftool = "!f() {         prdifftool $1;     };f "
+	prDiffTool = "!f() {         prDiffTool.bat $1;     };f "
+[merge]
+	tool = p4merge
+[diff]
+	tool = beyondcompare4
+	guitool = beyondcompare4
+[core]
+	editor = \"GitExtensions.exe\" fileeditor
+	autocrlf = false
+[user]
+	name = Vladimir
+[difftool "beyondcompare4"]
+	path = bcomp.exe
+	cmd = "\"bcomp.exe\" \"$REMOTE\" \"$LOCAL\" "
+[mergetool "p4merge"]
+	path = p4merge.exe
+	cmd = \"p4merge.exe\" \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+[i18n]
+	filesEncoding = utf-8
