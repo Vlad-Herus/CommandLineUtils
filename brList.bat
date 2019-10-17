@@ -1,7 +1,9 @@
+
+@echo off 
+
 rem prints n most recently changed remote branches
 rem takes one parameter - number of branches to print
 
-@echo off 
 setlocal enableextensions 
 for /f "tokens=*" %%a in ( 
 'git for-each-ref --sort=-committerdate --format="%%(committerdate:short) %%(authorname) %%(refname:short)" refs/remotes/origin --count %1' 
