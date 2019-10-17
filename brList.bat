@@ -1,4 +1,3 @@
-
 @echo off 
 
 rem prints n most recently changed remote branches
@@ -19,8 +18,11 @@ exit
 set "spaces=                                           "
 set "name=%2%spaces%"
 set "name=%name:~0,20%"
-
-echo %1      %name% %3
+set "brName=%3"
+setlocal ENABLEDELAYEDEXPANSION
+set "brName=%brName:origin/=%"
+if "%brName%" NEQ "HEAD" echo %1      %name% %brName%
+endlocal
 
 goto :eof
 
