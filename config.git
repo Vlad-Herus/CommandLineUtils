@@ -2,7 +2,7 @@
 	personalprofile = 'config'
 	prList = "!f() {         hub pr list -s open -f '%pC%>(8)%i%Creset %B %t% l%n';     };f "
 	prListAll = "!f() {         hub pr list -f '%pC%>(8)%i%Creset %t% l%n';     };f "
-	brList = "!f() {         git for-each-ref --sort=-committerdate --count $1 --format='%(committerdate:short) %(refname)' refs/heads refs/remotes;     };f "
+	brList = "!f() {         brlistFiltered.bat $1 $2;     };f "
 	mergeDiff = "!f() {         git difftool ...$1 -d;     };f "
 	mergeHist = "!f() {         git log --graph $1 --pretty=format:%h%x09%d%x20%s --merges -n $2;     };f "
 	co = checkout
