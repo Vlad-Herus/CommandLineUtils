@@ -10,7 +10,7 @@ if %2.==. (
   SET "var="&for /f "delims=0123456789" %%i in ("%1") do set var=%%i
   if defined var (
     rem character is numeric. If all are numeric we're passing %1 as count parameter to brList
-    brlist.bar 65536|findstr -i %1
+    brlist.bat 65536|findstr -i %1
     GOTO:EOF 
   ) else (
     rem character is numeric. If all are numeric we're passing %1 as count parameter to brList
