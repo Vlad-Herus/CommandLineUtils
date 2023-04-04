@@ -1,4 +1,5 @@
 @echo off
+SETLOCAL EnableDelayedExpansion
 
 rem this script will open configured difftool to show the differece between pull reqeust host and base branches
 
@@ -33,8 +34,28 @@ IF EXIST %fileName% del %fileName%
 rem removing the garbage from branch names
 set hostBranch=%hostBranchDirty:*uniqueStringToFind=%
 set baseBranch=%baseBranchDirty:*uniqueStringToFind=%
-
+ 
 rem I don't know how to do fancy fetch for branches that I need so I'm fetching all
 git fetch --all
-@echo on
+
+rem @echo on
+
+echo "%hostBranch%"|findstr /C:":" >nul
+if %errorlevel% == 1 (
 start git difftool -d origin/%baseBranch%...origin/%hostBranch%    
+) else (
+
+for /f "tokens=1 delims=:" %%i in ("%hostBranch%") do (set remoteRepo=%%i)
+for /f "tokens=2 delims=:" %%i in ("%hostBranch%") do (set remoteBranch=%%i)
+
+git remote get-url origin > %fileName%
+set /p repoUrl=<%filename%
+IF EXIST %fileName% del %fileName%
+
+for /f "tokens=2 delims=/" %%i in ("!repoUrl!") do (set repoName=%%i)
+set remoteRepoUrl=git@github.com:!remoteRepo!/!repoName!
+
+git fetch !remoteRepoUrl! !remoteBranch!:refs/remotes/!remoteRepo!/!remoteBranch!
+start git difftool -d origin/%baseBranch%...!remoteRepo!/!remoteBranch!
+)
+
